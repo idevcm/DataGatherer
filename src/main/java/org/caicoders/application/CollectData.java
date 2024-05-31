@@ -10,21 +10,21 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class CollectData implements ICollectData{
+public class CollectData implements ICollectData {
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
     private ICpuUsage usageCPU;
     private IRamUsage ramUsage;
     private IStorage UsbLector;
-    private IInternetSpeed velocInternet;
+    private IInternetSpeed internetSpeed;
 
     private StringBuilder message = new StringBuilder();
 
-    public CollectData(ICpuUsage usageCPU, IRamUsage ramUsage, IStorage UsbLector, IInternetSpeed velocInternet) {
+    public CollectData(ICpuUsage usageCPU, IRamUsage ramUsage, IStorage UsbLector, IInternetSpeed internetSpeed) {
         this.usageCPU = usageCPU;
         this.ramUsage = ramUsage;
         this.UsbLector = UsbLector;
-        this.velocInternet = velocInternet;
+        this.internetSpeed = internetSpeed;
     }
 
     @Override
@@ -38,7 +38,7 @@ public class CollectData implements ICollectData{
         message.setLength(0);
         message.append(usageCPU.getCpuUsageAverageStr()).append(", ");
         message.append(ramUsage.getRamUsageStr()).append(", ");
-        message.append(velocInternet.getInternetSpeedStr()).append(", ");
+        message.append(internetSpeed.getInternetSpeedStr()).append(", ");
         message.append(UsbLector.getStorage()).append(", ");
         message.append(usageCPU.getCpuName());
         System.out.println(message);

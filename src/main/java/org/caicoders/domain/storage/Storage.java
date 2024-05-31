@@ -16,15 +16,15 @@ public class Storage implements IStorage{
 
             for (FileStore fileStore : fileStores) {
                 try {
-                    //Nombre del disco
+                    //Disk name
                     storageInfo.append(fileStore).append("-");
-                    //Tipo de disco
+                    //Kind of disk
                     storageInfo.append(fileStore.type()).append("-");
-                    //Porcentaje de uso de disco
+                    //Percentage of disk used
                     double usagePercentage = usagePercentage(fileStore);
                     storageInfo.append(String.format("%.2f", usagePercentage).replace(',', '.')).append("%");
 
-                    // Agrega el separador si no es el último FileStore
+                    // Add an underscore if it's not the last FileStore.
                     if (i < totalFileStores - 1) {
                         storageInfo.append("_");
                     }
@@ -44,18 +44,18 @@ public class Storage implements IStorage{
     @Override
     public double usagePercentage(FileStore fileStore) {
         try {
-            // Obtiene el espacio total y el espacio utilizable para el FileStore.
+            // Get the total space and used space of the file store.
             long totalSpace = fileStore.getTotalSpace();
             long usedSpace = totalSpace - fileStore.getUsableSpace();
 
-            // Calcula y devuelve el porcentaje de uso de almacenamiento.
+            // Calculate the percentage of used space.
             if (totalSpace > 0) {
                 return (usedSpace / (double) totalSpace) * 100.0;
             } else {
                 return 0.0;
             }
         } catch (Exception e) {
-            // Imprime la traza de la excepción si se produce una y devuelve 0.0.
+            // Print the exception and return 0.0 if there's an error.
             e.printStackTrace();
             return 0.0;
         }

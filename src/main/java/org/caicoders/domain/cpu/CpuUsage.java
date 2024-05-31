@@ -1,6 +1,5 @@
 package org.caicoders.domain.cpu;
 
-import lombok.Getter;
 import oshi.SystemInfo;
 import oshi.hardware.CentralProcessor;
 import oshi.hardware.HardwareAbstractionLayer;
@@ -10,10 +9,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-@Getter
 public class CpuUsage implements ICpuUsage {
     private String cpuUsageAverageStr;
-    private String cpuName;
     private final SystemInfo SYSTEMINFO = new SystemInfo();
     private final HardwareAbstractionLayer HARDWARE = SYSTEMINFO.getHardware();
     private final CentralProcessor PROCESSOR = HARDWARE.getProcessor();

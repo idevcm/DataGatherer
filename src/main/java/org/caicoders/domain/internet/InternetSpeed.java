@@ -10,22 +10,27 @@ import java.util.concurrent.TimeUnit;
 
 public class InternetSpeed implements IInternetSpeed {
 
-    private String internetSpeedStr;  // Variable para almacenar la información de velocidad de Internet
+    private String internetSpeedStr;  // Variable for storing Internet speed information
     private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
     public InternetSpeed() {
-        scheduler.scheduleAtFixedRate(this::collectAndSendInternetSpeed, 0, 1, TimeUnit.SECONDS);
+        scheduler.scheduleAtFixedRate(
+                this::collectAndSendInternetSpeed,
+                0,
+                1,
+                TimeUnit.SECONDS
+        );
     }
 
     @Override
     public void collectAndSendInternetSpeed() {
         try {
-            // URL de prueba
+            // Try to connect to Google to measure the speed
             URL url = new URL("https://www.google.com");
             URLConnection connection = url.openConnection();
             long startTime = System.currentTimeMillis();
 
-            // Lee datos de la conexión para medir la velocidad
+            // Read the response to measure the speed
             int bufferSize = 1024;
             byte[] buffer = new byte[bufferSize];
             long totalBytesRead = 0;
@@ -37,16 +42,16 @@ public class InternetSpeed implements IInternetSpeed {
                 }
             }
             long endTime = System.currentTimeMillis();
-            // Calcula la velocidad en megabits por segundo (Mbps)
+            // Calculate the speed in Mbps
             long totalTime = endTime - startTime;
             double speedMbps = (totalBytesRead * 8.0 / 1024.0 / 1024.0) / (totalTime / 1000.0);
 
-            // Construir el mensaje final
+            // Build the string with the Internet speed information
             internetSpeedStr = String.format("%.3f", speedMbps).replace(',', '.') + " Mbps";
-            System.out.flush();  // Forzar la liberación del búfer
+            System.out.flush();  // Flush the output to avoid buffering
 
         } catch (IOException e) {
-            // Manejar el error y almacenar un mensaje en la variable
+            // Manage the exception if there's an error
             internetSpeedStr = "N.D";
             System.out.println(internetSpeedStr);
         }

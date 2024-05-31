@@ -12,21 +12,21 @@ public class RamUsage implements IRamUsage {
     private String ramUsageStr = "N.D.";  // Variable para almacenar la información de uso de RAM
 
     public RamUsage() {
-        // Programa la tarea para ejecutarse cada segundo
+        // Schedules the task to run every second
         scheduler.scheduleAtFixedRate(this::collectRamUsage, 0, 1, TimeUnit.SECONDS);
     }
 
     @Override
     public void collectRamUsage() {
-        // Recopila información de la CPU y la RAM
+        // Collects information from CPU and RAM
         SystemInfo si = new SystemInfo();
         GlobalMemory memory = si.getHardware().getMemory();
 
-        // Carga de la memoria
+        // Calculate the used memory in MB
         long usedMemory = memory.getTotal() - memory.getAvailable();
         double usedMemoryMb = usedMemory / (1024.0 * 1024.0);
 
-        // Construir el mensaje final
+        // Build the string with the RAM usage information
         ramUsageStr = String.format("%.2f", usedMemoryMb).replace(',', '.') + " MB";
     }
 
