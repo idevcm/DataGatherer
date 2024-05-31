@@ -5,7 +5,7 @@ FROM amazoncorretto:21
 VOLUME /tmp
 
 # Make port 8080 available to the world outside this container
-EXPOSE 8080
+EXPOSE 6789
 
 # The application's jar file
 ARG JAR_FILE=out/artifacts/DataGatherer_jar/DataGatherer.jar

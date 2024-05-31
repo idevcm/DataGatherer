@@ -35,14 +35,14 @@ This will create a JAR file in the `out/artifacts/DataGatherer_jar/` directory.
 The project includes a Dockerfile for building a Docker image of the application. To build the image, run the following command in the project directory:
 
 ```
-docker build -t data-gatherer
+docker build -t datagatherer .
 ```
-This will create a Docker image named `data-gatherer`.
+This will create a Docker image named `datagatherer`.
 
 ### Running the Docker Container
 
 To run the application in a Docker container, use the following command:
 ```
-docker run -p 8080:8080 data-gatherer
+docker run --name serverside -p 6789:6789 datagatherer
 ```
-This will start the application and expose it on port 8080.
+This will start the application and expose it on port 6789.
